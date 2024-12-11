@@ -1,3 +1,5 @@
+"use client";
+
 import Link from 'next/link'
 import { BrandLogo } from "../../../components/ui/BrandLogo";
 import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
@@ -13,9 +15,8 @@ export default function NavBar() {
             <Link className="text-lg" href="#">About</Link>
             <span className='text-lg'>
                 <SignedIn>
-                    <Link href="/dashboard" />
+                    <Link href="/dashboard">Dashboard</Link>
                 </SignedIn>
-
                 <SignedOut>
                     <SignInButton>Login</SignInButton>
                 </SignedOut>

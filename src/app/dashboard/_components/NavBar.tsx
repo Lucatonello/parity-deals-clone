@@ -8,15 +8,10 @@ export default function NavBar() {
             <Link className="mr-auto" href="/dashboard">
                 <BrandLogo />
             </Link>
-            <Link href='/products'>
-                Products
-            </Link>
-            <Link href='/analytics'>
-                Analytics
-            </Link>
-            <Link href='/subscription'>
-                Subscription
-            </Link>
+            
+            <Link href='/dashboard/'>Products</Link>
+            <Link href='/dashboard/'>Analytics</Link>
+            <Link href='/dashboard/'>Subscription</Link>
             <UserButton />
         </nav>
     </header>
