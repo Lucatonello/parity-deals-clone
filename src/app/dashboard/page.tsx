@@ -8,6 +8,7 @@ export default async function Page() {
     if (!userId) return null
 
     const products = await getProducts(userId, { limit: 6 })
+    console.log('products: ', products)
 
     if (products.length === 0) return <NoProducts />
 
