@@ -17,7 +17,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { productDetailsSchema } from "../../../../schemas/products"
 import { useToast } from "@/hooks/use-toast"
-import { createProduct } from "@/server/db/products"
+import { CreateProduct } from "@/server/actions/products"
 
 export function ProductDetailsForm({
   product,
@@ -44,7 +44,7 @@ export function ProductDetailsForm({
   async function onSubmit(values: z.infer<typeof productDetailsSchema>) {
     // const action =
     //   product == null ? createProduct : updateProduct.bind(null, product.id)
-    const data = await createProduct(values)
+    const data = await CreateProduct(values)
 
     if (data?.message) {
       toast({

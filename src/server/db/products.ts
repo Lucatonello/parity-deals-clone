@@ -13,6 +13,7 @@ export async function getProducts(userId: string, { limit }: { limit?: number} )
     })
 }
 export async function createProduct(data: typeof ProductTable.$inferInsert) {
+    console.log('data from createProduct: ', data)
     const [newProduct] = await db
       .insert(ProductTable)
       .values(data)
