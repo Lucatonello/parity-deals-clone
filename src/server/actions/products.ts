@@ -7,11 +7,14 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 
 export async function CreateProduct(unsafeData: z.infer<typeof productDetailsSchema>) {
-    const { userId } = await auth()
+    const { userId } = auth()
     const { success, data } =  productDetailsSchema.safeParse(unsafeData)
-    console.log('userId', userId) 
+
     if (userId === null) {
-        return { error: true, message: 'There was an error creating your product. userId is null' }
+        return { 
+            error: true, 
+            message: 'There was an error creating your product. userId is null' 
+        }
     } else if (!success) {
         return { 
             error: true, 
@@ -19,7 +22,6 @@ export async function CreateProduct(unsafeData: z.infer<typeof productDetailsSch
         }
     }
 
-    console.log('data action: ', data, 'userId action: ', userId);
     const { id } = await createProductDb({ ...data, clerkUserId: userId })
 
     redirect(`/dashboard/products/${id}/edit?tab=countries`)
