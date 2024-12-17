@@ -2,11 +2,18 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import Link from "next/link"
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
-import { DropdownMenu } from "@/components/ui/dropdown-menu";
-import { DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
-import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
-import { AlertDialog, AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuSeparator, 
+  DropdownMenuTrigger 
+} from "@/components/ui/dropdown-menu";
+
+import { Dialog, DialogTrigger } from "@/components/ui/dialog"
+import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog"
 import { AddToSiteProductModalContent } from "./AddToSiteProductModalContent";
+import { DeleteProductAlertDialogContent } from "./DeleteProductAlertDialogContent";
 
 export function ProductGrid({
     products,
@@ -64,9 +71,9 @@ export function ProductCard({
                 </AlertDialogTrigger>
               </DropdownMenuContent>
             </DropdownMenu>
-            {/* <DeleteProductAlertDialogConten id={id} /> */}
+              <DeleteProductAlertDialogContent id={id} />
           </AlertDialog>
-          <AddToSiteProductModalContent  />
+          <AddToSiteProductModalContent id={id} />
         </Dialog>
       </div>
       <CardDescription>{url}</CardDescription>
