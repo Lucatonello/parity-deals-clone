@@ -3,6 +3,7 @@
 import { db } from "@/drizzle/db";
 import { ProductCustomizationTable, ProductTable } from "@/drizzle/schema";
 import { CACHE_TAGS, dbCache, getIdTag, getUserTag, revalidateDbCache } from "@/lib/cache";
+import { auth } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
 
 export async function getProducts(
@@ -69,25 +70,32 @@ export async function deleteProduct({ id, userId }: { id: string, userId: string
   return rowCount > 0
 }
 
-export async function updateProduct(data: Partial<typeof ProductTable.$inferInsert>, { id, userId}: {
-  id: string,
-  userId: string
-}) {
+export async function updateProduct(
+  data: Partial<typeof ProductTable.$inferInsert>,
+  { id, userId }: { id: string, userId: string }
+) {
+  
+  console.log('update func triggered')
+  console.log('data: ', data)
+  console.log('userId: ', userId)
+  console.log('id: ', id)
+
   const { rowCount } = await db
     .update(ProductTable)
     .set(data)
     .where(and(eq(ProductTable.clerkUserId, userId), eq(ProductTable.id, id)))
 
-  if (rowCount < 0) {
+  if (rowCount > 0) {
     revalidateDbCache({
       tag: CACHE_TAGS.products,
       userId,
-      id
+      id,
     })
   }
 
   return rowCount > 0
 }
+
 
 function getProductsInternal(userId: string, { limit }: { limit?: number }) {
   return db.query.ProductTable.findMany({

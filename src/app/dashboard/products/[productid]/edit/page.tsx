@@ -7,18 +7,19 @@ import { auth } from "@clerk/nextjs/server"
 import { notFound } from "next/navigation"
 
 export default async function EditProductPage({
-    params: { productId },
-    searchParams: { tab = "details" },
+    params: { productid },
+    searchParams
 }: {
-    params: { productId: string }
+    params: { productid: string }
     searchParams: { tab?: string }
 }) {
     const { userId, redirectToSignIn } = auth()
+    if (userId == null) return redirectToSignIn()
 
-    if (userId === null) return redirectToSignIn()
-
-    const product = await getProduct({ id: productId, userId })
-    if (product === null) return notFound()
+    const tab = (searchParams)?.tab || "details"
+  
+    const product = await getProduct({ id: productid, userId })
+    if (product == null) return notFound()  
 
     return <PageWithBackButton backButtonHref="/dasboard/products" pageTitle="Edit Product">
         <Tabs defaultValue={tab}>
